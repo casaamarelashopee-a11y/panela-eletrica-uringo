@@ -882,23 +882,52 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 					<div class="elementor-element elementor-element-1b9aafc8 elementor-widget elementor-widget-text-editor"
 						data-id="1b9aafc8" data-element_type="widget" data-widget_type="text-editor.default">
 						<div class="elementor-widget-container">
-							<p>TERMINA EM:</p>
-						</div>
-					</div>
-				</div>
-				<div class="elementor-element elementor-element-746b5b8c e-con-full e-flex e-con e-child"
-					data-id="746b5b8c" data-element_type="container">
-					<div class="elementor-element elementor-element-5ce397d7 elementor-countdown--label-block elementor-widget elementor-widget-countdown"
-						data-id="5ce397d7" data-element_type="widget" data-widget_type="countdown.default">
-						<div class="elementor-widget-container">
-							<div data-evergreen-interval="600" class="elementor-countdown-wrapper" data-date="">
-								<div class="elementor-countdown-item"><span
-										class="elementor-countdown-digits elementor-countdown-hours"></span></div>
-								<div class="elementor-countdown-item"><span
-										class="elementor-countdown-digits elementor-countdown-minutes"></span></div>
-								<div class="elementor-countdown-item"><span
-										class="elementor-countdown-digits elementor-countdown-seconds"></span></div>
-							</div>
+						<p>TERMINA EM:</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="elementor-element elementor-element-746b5b8c e-con-full e-flex e-con e-child" data-id="746b5b8c" data-element_type="container">
+                    <div class="elementor-element elementor-element-5ce397d7 elementor-countdown--label-block elementor-widget elementor-widget-countdown" data-id="5ce397d7" data-element_type="widget" data-widget_type="countdown.default">
+                        <div class="elementor-widget-container">
+                            <div data-evergreen-interval="600" class="elementor-countdown-wrapper" data-date="">
+                                <div class="elementor-countdown-item"><span id="hora-10m" class="elementor-countdown-digits elementor-countdown-hours">00</span></div>
+                                <div class="elementor-countdown-item"><span id="minuto-10m" class="elementor-countdown-digits elementor-countdown-minutes">10</span></div>
+                                <div class="elementor-countdown-item"><span id="segundo-10m" class="elementor-countdown-digits elementor-countdown-seconds">00</span></div>
+                            </div>
+
+                            <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                let timeInSecs;
+                                let ticker;
+
+                                function startTimer(secs) {
+                                    timeInSecs = parseInt(secs);
+                                    ticker = setInterval(tick, 1000);
+                                }
+
+                                function tick() {
+                                    let secs = timeInSecs;
+                                    if (secs > 0) { timeInSecs--; } else { clearInterval(ticker); timeInSecs = 0; }
+
+                                    let h = Math.floor(secs / 3600);
+                                    let m = Math.floor((secs % 3600) / 60);
+                                    let s = secs % 60;
+
+                                    document.getElementById("hora-10m").innerText = (h < 10 ? "0" : "") + h;
+                                    document.getElementById("minuto-10m").innerText = (m < 10 ? "0" : "") + m;
+                                    document.getElementById("segundo-10m").innerText = (s < 10 ? "0" : "") + s;
+
+                                    sessionStorage.setItem("timer_10_minutos", timeInSecs);
+                                }
+
+                                let savedTime = sessionStorage.getItem("timer_10_minutos");
+                                if(savedTime && savedTime > 0) {
+                                    startTimer(savedTime);
+                                } else {
+                                    startTimer(10 * 60); // 10 minutos em segundos
+                                }
+                            });
+                            </script>
 						</div>
 					</div>
 				</div>
@@ -1027,7 +1056,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				<div>
 					<div>
 						<div style="padding: 5px;">
-							<img src="LP Panela.png" alt="" style="width: 100%; display: block;">
+							<img src="Design sem nome (9).png" alt="" style="width: 100%; display: block;">
 
 						</div>
 
